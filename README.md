@@ -17,7 +17,10 @@ node scripts/generate-data.mjs              # régénère data/ depuis PokéAPI 
 node scripts/generate-data.mjs --manquants  # n'écrit que les fiches absentes
 node scripts/generate-data.mjs --frais      # ignore le cache et retélécharge tout
 node scripts/fetch-images.mjs               # images WebP manquantes (nécessite cwebp)
+node scripts/generate-cartes.mjs             # extensions de cartes ayant des images (TCGdex)
 ```
+
+Les extensions de cartes sans logo ni image, ou absentes de `data/extensions.json`, sont masquées sur la page Cartes : relancer `generate-cartes.mjs` pour faire apparaître les nouvelles.
 
 Après une régénération, incrémenter `VERSION` dans `assets/js/commun.js` pour invalider le cache des navigateurs.
 

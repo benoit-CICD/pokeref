@@ -175,3 +175,32 @@ export function pagination(nav, page, pages, surChangement) {
   elements.push(bouton('→', page + 1, { aria: 'Page suivante' }));
   nav.replaceChildren(...elements);
 }
+
+// ---------------------------------------------------------------- thème clair / sombre
+
+// Sans choix de l'utilisateur, le site suit le réglage du système (ou du navigateur).
+// Le bouton force un thème, mémorisé sur l'appareil.
+const CLE_THEME = 'pokeref:theme';
+
+function installerBoutonTheme() {
+  const racine = document.documentElement;
+  const sombre = () => racine.dataset.theme
+    ? racine.dataset.theme === 'dark'
+    : matchMedia('(prefers-color-scheme: dark)').matches;
+  const bouton = el('button', { type: 'button', class: 'bouton-theme' });
+  const maj = () => {
+    bouton.textContent = sombre() ? '☀️' : '🌙';
+    bouton.setAttribute('aria-label', sombre() ? 'Passer au thème clair' : 'Passer au thème sombre');
+    bouton.title = bouton.getAttribute('aria-label');
+  };
+  bouton.addEventListener('click', () => {
+    racine.dataset.theme = sombre() ? 'light' : 'dark';
+    try { localStorage.setItem(CLE_THEME, racine.dataset.theme); } catch { /* non mémorisé */ }
+    maj();
+  });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', maj);
+  maj();
+  document.querySelector('.entete .conteneur')?.append(bouton);
+}
+
+installerBoutonTheme();

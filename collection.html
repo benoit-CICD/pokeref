@@ -6,6 +6,10 @@
   <title>Ma collection de cartes — PokéRef</title>
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/css/style.css">
+  <script>
+    // Applique le thème choisi avant l'affichage, pour éviter un flash de la mauvaise couleur.
+    try { var t = localStorage.getItem('pokeref:theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
 </head>
 <body>
   <a class="lien-evitement" href="#contenu">Aller au contenu</a>

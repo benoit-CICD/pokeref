@@ -8,9 +8,9 @@
 // Les cartes viennent de l'API TCGdex (https://tcgdex.dev), appelée en direct depuis le navigateur,
 // avec un petit cache. La collection, elle, reste dans le localStorage de l'appareil.
 
-import { el, nombre, normaliser, pagination } from './commun.js';
+import { charger, el, nombre, normaliser, pagination } from './commun.js';
 
-const API = 'https://api.tcgdex.net/v2/fr';
+const API = 'https://api.tcgdex.net/v2';
 const CLE_COLLECTION = 'pokeref:collection:v1';
 const PREFIXE_CACHE = 'pokeref:tcgdex:v1:';
 const DUREE_CACHE = 24 * 60 * 60 * 1000; // 24 h
@@ -23,15 +23,15 @@ const parametres = new URLSearchParams(location.search);
 // ---------------------------------------------------------------- API + cache
 
 /** Interroge TCGdex. `durable` : cache localStorage 24 h ; sinon cache limité à l'onglet. */
-async function api(chemin, { durable = false } = {}) {
+async function api(chemin, { durable = false, langue = 'fr' } = {}) {
   const stockage = durable ? localStorage : sessionStorage;
-  const cle = PREFIXE_CACHE + chemin;
+  const cle = `${PREFIXE_CACHE}${langue}:${chemin}`;
   try {
     const enCache = JSON.parse(stockage.getItem(cle));
     if (enCache && Date.now() - enCache.t < DUREE_CACHE) return enCache.d;
   } catch { /* cache illisible : on recharge */ }
 
-  const reponse = await fetch(`${API}/${chemin}`);
+  const reponse = await fetch(`${API}/${langue}/${chemin}`);
   if (!reponse.ok) throw new Error(`TCGdex a répondu ${reponse.status}`);
   const donnees = await reponse.json();
   try {
@@ -39,6 +39,9 @@ async function api(chemin, { durable = false } = {}) {
   } catch { /* stockage plein ou indisponible : tant pis pour le cache */ }
   return donnees;
 }
+
+/** Même appel en anglais, pour combler les images absentes en français. Ne bloque jamais l'affichage. */
+const apiAnglais = (chemin, options) => api(chemin, { ...options, langue: 'en' }).catch(() => null);
 
 // ---------------------------------------------------------------- collection (localStorage)
 
@@ -96,6 +99,13 @@ function nettoyerCartes(cartes) {
 
 // ---------------------------------------------------------------- rendu des cartes
 
+/** Dos de carte de remplacement quand TCGdex n'a pas (encore) l'image. */
+function sansImage(carte) {
+  return el('span', { class: 'sans-image' },
+    el('span', { class: 'sans-image-nom' }, carte.name),
+    el('span', {}, 'Image pas encore disponible'));
+}
+
 function tuileCarte(carte, idExtension, surBascule) {
   const possedee = () => carte.id in collection;
   const etat = el('span', { class: 'etat', 'aria-hidden': 'true' }, possedee() ? '✓' : '+');
@@ -115,10 +125,13 @@ function tuileCarte(carte, idExtension, surBascule) {
   },
     etat,
     carte.image
-      ? el('img', { src: `${carte.image}/low.webp`, alt: '', width: 245, height: 337, loading: 'lazy', decoding: 'async' })
-      : el('span', { class: 'sans-image' }, 'Image indisponible'),
+      ? el('img', {
+        src: `${carte.image}/low.webp`, alt: '', width: 245, height: 337, loading: 'lazy', decoding: 'async',
+        onerror: (evenement) => evenement.target.replaceWith(sansImage(carte)),
+      })
+      : sansImage(carte),
     el('strong', {}, carte.name),
-    el('small', {}, `N° ${carte.localId}`),
+    el('small', {}, `N° ${carte.localId}${carte.imageAnglaise ? ' · image en anglais' : ''}`),
   );
   return el('li', {}, bouton);
 }
@@ -147,11 +160,76 @@ function afficherGrille(conteneur, cartes, { vide, surBascule, classe = '' }) {
   return { rendre, definir: (nouvelles) => { cartes = nouvelles; page = 1; rendre(); } };
 }
 
+// ---------------------------------------------------------------- extensions masquées
+
+// data/extensions.json (généré par scripts/generate-cartes.mjs) indique, pour chaque extension,
+// si elle a un logo et combien de cartes ont une image. On masque celles sur lesquelles on n'a
+// rien à montrer : ni logo ni image de carte, ou aucune carte. Une extension absente du fichier
+// (sortie après sa génération) est masquée aussi, en attendant la prochaine mise à jour.
+const CLE_TOUT_AFFICHER = 'pokeref:cartes:tout-afficher';
+
+function toutAfficher() {
+  try { return localStorage.getItem(CLE_TOUT_AFFICHER) === '1'; } catch { return false; }
+}
+
+/** Renvoie la fonction « cette extension est-elle masquée ? ». */
+async function chargerMasquees() {
+  let infos;
+  try {
+    infos = await charger('data/extensions.json');
+  } catch {
+    return () => false; // fichier indisponible : on ne masque rien plutôt que de tout cacher
+  }
+  return (id) => {
+    const info = infos[id];
+    return !info || info.total === 0 || (info.images === 0 && !info.logo);
+  };
+}
+
+/** Bandeau « N masquées · Les afficher », qui mémorise le choix et recharge la vue. */
+function bandeauMasquees(nombreMasquees, libelle) {
+  if (!nombreMasquees) return null;
+  const affichees = toutAfficher();
+  return el('p', { class: 'bandeau-masquees' },
+    affichees ? `${nombreMasquees} ${libelle} sans images sont affichées. ` : `${nombreMasquees} ${libelle} sans images sont masquées. `,
+    el('button', {
+      type: 'button', class: 'lien-discret',
+      onclick: () => {
+        try {
+          if (affichees) localStorage.removeItem(CLE_TOUT_AFFICHER);
+          else localStorage.setItem(CLE_TOUT_AFFICHER, '1');
+        } catch { /* choix non mémorisé */ }
+        location.reload();
+      },
+    }, affichees ? 'Les masquer' : 'Les afficher'),
+  );
+}
+
 // ---------------------------------------------------------------- vue : extensions
+
+/** Logo français, sinon logo anglais, sinon le nom de l'extension en toutes lettres. */
+function logoExtension(extension, logoAnglais) {
+  const conteneur = el('span', { class: 'extension-logo' });
+  const sources = [extension.logo, logoAnglais].filter(Boolean);
+  const essayer = () => {
+    const source = sources.shift();
+    if (!source) return conteneur.replaceChildren(el('span', { class: 'extension-sans-logo' }, extension.name));
+    conteneur.replaceChildren(el('img', { src: `${source}.webp`, alt: '', loading: 'lazy', onerror: essayer }));
+  };
+  essayer();
+  return conteneur;
+}
 
 async function vueExtensions() {
   $('onglet-extensions').setAttribute('aria-current', 'page');
-  const extensions = (await api('sets', { durable: true })).slice().reverse(); // les plus récentes d'abord
+  const [francaises, anglaises, estMasquee] = await Promise.all([
+    api('sets', { durable: true }), apiAnglais('sets', { durable: true }), chargerMasquees(),
+  ]);
+  const logosAnglais = new Map((anglaises ?? []).map((e) => [e.id, e.logo]));
+  const nombreMasquees = francaises.filter((e) => estMasquee(e.id)).length;
+  const extensions = francaises
+    .filter((e) => toutAfficher() || !estMasquee(e.id))
+    .reverse(); // les plus récentes d'abord
 
   const possedees = {};
   for (const c of Object.values(collection)) possedees[c.s] = (possedees[c.s] ?? 0) + 1;
@@ -173,8 +251,7 @@ async function vueExtensions() {
       return el('li', {},
         el('article', { class: 'extension' },
           el('a', { href: `collection.html?set=${encodeURIComponent(e.id)}` },
-            el('span', { class: 'extension-logo' },
-              e.logo ? el('img', { src: `${e.logo}.webp`, alt: '', loading: 'lazy' }) : e.name.slice(0, 2).toUpperCase()),
+            logoExtension(e, logosAnglais.get(e.id)),
             el('strong', {}, e.name),
             el('small', {}, `${nb} / ${total} cartes`),
             el('span', { class: 'progression', 'aria-hidden': 'true' }, el('i', { style: `--v:${total ? Math.round((nb / total) * 100) : 0}%` })),
@@ -187,7 +264,11 @@ async function vueExtensions() {
   };
   filtre.addEventListener('input', () => { page = 1; rendre(); });
 
-  vue.replaceChildren(el('div', { class: 'barre-resultats' }, compteur, filtre), liste);
+  vue.replaceChildren(
+    el('div', { class: 'barre-resultats' }, compteur, filtre),
+    liste,
+    bandeauMasquees(nombreMasquees, 'extensions'),
+  );
   rendre();
 }
 
@@ -197,6 +278,21 @@ async function vueExtension(id) {
   $('onglet-extensions').setAttribute('aria-current', 'page');
   const extension = await api(`sets/${encodeURIComponent(id)}`);
   const cartes = extension.cards.map((c) => ({ ...c, set: extension.id }));
+  if (cartes.some((c) => !c.image)) {
+    // Certaines cartes n'ont pas d'image en français : on prend l'image anglaise quand elle existe.
+    const anglaise = await apiAnglais(`sets/${encodeURIComponent(id)}`);
+    const images = new Map((anglaise?.cards ?? []).map((c) => [c.localId, c.image]));
+    for (const c of cartes) {
+      if (!c.image && images.get(c.localId)) Object.assign(c, { image: images.get(c.localId), imageAnglaise: true });
+    }
+  }
+  const sansImages = cartes.filter((c) => !c.image).length;
+  const enAnglais = cartes.filter((c) => c.imageAnglaise).length;
+  const note = sansImages === cartes.length
+    ? 'Les images de cette extension ne sont pas encore disponibles. Tu peux quand même cocher tes cartes grâce à leur nom et leur numéro.'
+    : sansImages ? `${sansImages} carte${sansImages > 1 ? 's n\'ont' : ' n\'a'} pas encore d'image.`
+    : '';
+  const noteAnglais = enAnglais ? `${enAnglais} image${enAnglais > 1 ? 's sont affichées' : ' est affichée'} en anglais, faute de version française.` : '';
   document.title = `${extension.name} — Cartes — PokéRef`;
 
   let filtre = 'toutes';
@@ -235,6 +331,7 @@ async function vueExtension(id) {
       el('p', {}, [extension.serie?.name && `Série ${extension.serie.name}`, extension.releaseDate && `sortie le ${new Date(extension.releaseDate).toLocaleDateString('fr-FR')}`].filter(Boolean).join(' · ')),
       compteur,
       el('span', { class: 'progression', 'aria-hidden': 'true' }, barre),
+      (note || noteAnglais) && el('p', { class: 'note-images' }, [note, noteAnglais].filter(Boolean).join(' ')),
       puces,
     ),
     zone,
@@ -247,15 +344,19 @@ async function vueExtension(id) {
 async function vueRecherche(q) {
   $('recherche-cartes').value = q;
   document.title = `« ${q} » — Cartes — PokéRef`;
-  const resultats = await api(`cards?name=${encodeURIComponent(q)}`);
+  const [resultats, estMasquee] = await Promise.all([api(`cards?name=${encodeURIComponent(q)}`), chargerMasquees()]);
   // L'identifiant d'une carte est « extension-numéro » : on en déduit l'extension.
-  const cartes = resultats.map((c) => ({ ...c, set: c.id.slice(0, c.id.length - String(c.localId).length - 1) }));
+  const toutes = resultats.map((c) => ({ ...c, set: c.id.slice(0, c.id.length - String(c.localId).length - 1) }));
+  // Les cartes des extensions masquées le sont aussi, sauf celles déjà dans la collection.
+  const cartes = toutes.filter((c) => toutAfficher() || !estMasquee(c.set) || c.id in collection);
+  const nombreMasquees = toutes.filter((c) => estMasquee(c.set) && !(c.id in collection)).length;
   const zone = el('div', {});
   vue.replaceChildren(
     el('div', { class: 'barre-resultats' },
       el('p', {}, `${nombre(cartes.length)} carte${cartes.length > 1 ? 's' : ''} pour « ${q} »`),
       el('a', { class: 'lien-discret', href: 'collection.html' }, 'Effacer la recherche')),
     zone,
+    bandeauMasquees(nombreMasquees, 'cartes'),
   );
   afficherGrille(zone, cartes, { vide: ['Aucune carte trouvée', 'Vérifie l\'orthographe ou essaie un autre nom.'] });
 }
