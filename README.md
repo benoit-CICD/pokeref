@@ -22,7 +22,14 @@ node scripts/generate-cartes.mjs             # extensions de cartes ayant des im
 
 Les extensions de cartes sans logo ni image, ou absentes de `data/extensions.json`, sont masquées sur la page Cartes : relancer `generate-cartes.mjs` pour faire apparaître les nouvelles.
 
-Après une régénération, incrémenter `VERSION` dans `assets/js/commun.js` pour invalider le cache des navigateurs.
+Après une régénération, lancer `node scripts/bump-version.mjs` : il incrémente la version des données pour invalider le cache des navigateurs.
+
+### Depuis GitHub
+
+Le workflow « Mise à jour des données » (`.github/workflows/update-data.yml`) lance ces scripts sur GitHub et commite le résultat :
+
+- chaque lundi, il met à jour les extensions de cartes ;
+- à la main, depuis l'onglet Actions → « Mise à jour des données » → Run workflow, en choisissant `cartes`, `pokemon` ou `tout`.
 
 ## Ajouter un article
 

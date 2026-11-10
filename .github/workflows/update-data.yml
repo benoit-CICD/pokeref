@@ -1,0 +1,83 @@
+# Régénère les données du site et les commite si elles ont changé.
+#
+# - Chaque lundi : les extensions de cartes (TCGdex ajoute des images au fil du temps).
+# - À la main (onglet Actions → « Mise à jour des données » → Run workflow) :
+#   cartes, Pokémon, ou les deux.
+name: Mise à jour des données
+
+on:
+  schedule:
+    - cron: '0 5 * * 1' # lundi, 5 h UTC
+  workflow_dispatch:
+    inputs:
+      quoi:
+        description: Données à régénérer
+        type: choice
+        default: cartes
+        options:
+          - cartes
+          - pokemon
+          - tout
+
+permissions:
+  contents: write # commiter les fichiers générés
+  actions: write # relancer le déploiement
+
+concurrency:
+  group: mise-a-jour-donnees
+  cancel-in-progress: false
+
+env:
+  # Une exécution planifiée n'a pas de paramètre : elle ne met à jour que les cartes.
+  QUOI: ${{ inputs.quoi || 'cartes' }}
+
+jobs:
+  mise-a-jour:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Extensions de cartes (TCGdex)
+        if: env.QUOI == 'cartes' || env.QUOI == 'tout'
+        run: node scripts/generate-cartes.mjs
+
+      - name: Données Pokémon (PokéAPI)
+        if: env.QUOI == 'pokemon' || env.QUOI == 'tout'
+        run: node scripts/generate-data.mjs
+
+      - name: Images des nouveaux Pokémon
+        if: env.QUOI == 'pokemon' || env.QUOI == 'tout'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq webp
+          node scripts/fetch-images.mjs
+
+      - name: Commiter les changements
+        id: commit
+        run: |
+          git add data assets/img/pokemon
+          if git diff --cached --quiet; then
+            echo "Aucun changement dans les données."
+            echo "change=non" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # Les données ont changé : nouvelle version pour invalider le cache des navigateurs.
+          node scripts/bump-version.mjs
+          git add assets/js/commun.js index.html
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Mise à jour automatique des données ($QUOI)"
+          git push
+          echo "change=oui" >> "$GITHUB_OUTPUT"
+
+      # Un push fait par une Action ne déclenche pas les autres workflows : on relance le déploiement.
+      - name: Relancer le déploiement
+        if: steps.commit.outputs.change == 'oui'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref "${{ github.ref_name }}"
