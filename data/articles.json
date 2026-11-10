@@ -75,18 +75,57 @@
       { "t": "h2", "texte": "1996 : Rouge et Vert au Japon" },
       { "t": "p", "texte": "Les premiers jeux, Pocket Monsters Rouge et Vert, sortent au Japon en février 1996 sur Game Boy. On y découvre la région de Kanto et 151 Pokémon, dessinés par Ken Sugimori. En France, ils arrivent en 1999 sous les noms Pokémon Rouge et Pokémon Bleu, suivis de la version Jaune où Pikachu marche derrière le héros." },
       { "t": "pokemon", "ids": [1, 4, 7, 25, 150, 151] },
-      { "t": "h2", "texte": "Une nouvelle région à chaque génération" },
-      { "t": "p", "texte": "Chaque nouvelle « génération » de jeux apporte une région à explorer, de nouveaux Pokémon et de nouvelles idées." },
-      { "t": "liste", "elements": [
-        "Génération 2 — Or et Argent (Johto) : le jour et la nuit, les Œufs et 100 nouveaux Pokémon.",
-        "Génération 3 — Rubis et Saphir (Hoenn) : les talents et les combats à deux contre deux, sur Game Boy Advance.",
-        "Génération 4 — Diamant et Perle (Sinnoh) : les échanges et combats en ligne, sur Nintendo DS.",
-        "Génération 5 — Noir et Blanc (Unys) : 156 nouveaux Pokémon, le record pour une seule génération.",
-        "Génération 6 — X et Y (Kalos) : le passage à la 3D, le type Fée et les Méga-Évolutions.",
-        "Génération 7 — Soleil et Lune (Alola) : des îles tropicales, les formes régionales et les capacités Z.",
-        "Génération 8 — Épée et Bouclier (Galar) : les premiers jeux principaux sur Nintendo Switch, avec des Pokémon géants.",
-        "Génération 9 — Écarlate et Violet (Paldea) : un grand monde ouvert à explorer librement."
+      { "t": "h2", "texte": "1996, 1997, 1998 ou 1999 ?" },
+      {"t": "p", "texte": "On lit parfois que Pokémon est né en 1996, parfois en 1997 ou plus tard. Tout le monde a un peu raison : à l'époque, les jeux sortaient d'abord au Japon et mettaient longtemps à être traduits."},
+      {"t": "liste", "elements": ["1996 : les premiers jeux sortent au Japon.", "1997 : le dessin animé commence au Japon.", "1998 : les jeux arrivent en Amérique du Nord.", "1999 : les jeux arrivent en Europe, donc en France."]},
+      {"t": "p", "texte": "Cet écart entre le Japon et l'Europe a duré des années, puis s'est réduit. Depuis X et Y, en 2013, presque tous les jeux sortent le même jour partout dans le monde."},
+      { "t": "h2", "texte": "La frise des jeux, génération par génération" },
+      {"t": "p", "texte": "Chaque génération apporte une nouvelle région et de nouveaux Pokémon. Mais on y trouve aussi des versions complémentaires et des remakes : d'anciens jeux refaits avec les graphismes et les nouveautés du moment."},
+      { "t": "frise", "generations": [
+        {"numero": 1, "region": "Kanto", "vedette": 6, "resume": "Les 151 premiers Pokémon, sur Game Boy.", "jeux": [
+          {"nom": "Pocket Monsters Rouge et Vert", "genre": "Nouvelle région", "console": "Game Boy", "japon": "1996-02-27", "europe": null, "note": "Les tout premiers jeux Pokémon. La version Verte n'est jamais sortie en dehors du Japon."},
+          {"nom": "Pocket Monsters Bleu", "genre": "Version complémentaire", "console": "Game Boy", "japon": "1996-10-15", "europe": null, "note": "Une version améliorée, d'abord vendue par correspondance au Japon. Elle a servi de base aux versions sorties chez nous."},
+          {"nom": "Pokémon Rouge et Bleu", "genre": "Versions internationales", "console": "Game Boy", "japon": null, "europe": "1999-10-05", "note": "Ce sont les jeux que l'Europe a connus en premier, plus de trois ans et demi après la sortie japonaise de Rouge et Vert. Ils étaient sortis en Amérique du Nord dès septembre 1998."},
+          {"nom": "Pokémon Jaune", "genre": "Version complémentaire", "console": "Game Boy", "japon": "1998-09-12", "europe": "2000-06-16", "note": "Inspirée du dessin animé : on commence avec Pikachu, qui marche derrière le héros."}
+        ] },
+        {"numero": 2, "region": "Johto", "vedette": 250, "resume": "Le jour et la nuit, les Œufs et 100 nouveaux Pokémon, sur Game Boy Color.", "jeux": [
+          {"nom": "Pokémon Or et Argent", "genre": "Nouvelle région", "console": "Game Boy Color", "japon": "1999-11-21", "europe": "2001-04-06"},
+          {"nom": "Pokémon Cristal", "genre": "Version complémentaire", "console": "Game Boy Color", "japon": "2000-12-14", "europe": "2001-11-02", "note": "Pour la première fois, on peut choisir de jouer une fille."}
+        ] },
+        {"numero": 3, "region": "Hoenn", "vedette": 384, "resume": "Les talents et les combats à deux contre deux, sur Game Boy Advance.", "jeux": [
+          {"nom": "Pokémon Rubis et Saphir", "genre": "Nouvelle région", "console": "Game Boy Advance", "japon": "2002-11-21", "europe": "2003-07-25"},
+          {"nom": "Pokémon Rouge Feu et Vert Feuille", "genre": "Remake", "console": "Game Boy Advance", "japon": "2004-01-29", "europe": "2004-10-01", "note": "Les premiers remakes de la série : ils refont Rouge et Vert (génération 1) avec les graphismes et les nouveautés de la génération 3."},
+          {"nom": "Pokémon Émeraude", "genre": "Version complémentaire", "console": "Game Boy Advance", "japon": "2004-09-16", "europe": "2005-10-21"}
+        ] },
+        {"numero": 4, "region": "Sinnoh", "vedette": 483, "resume": "Les échanges et les combats en ligne, sur Nintendo DS.", "jeux": [
+          {"nom": "Pokémon Diamant et Perle", "genre": "Nouvelle région", "console": "Nintendo DS", "japon": "2006-09-28", "europe": "2007-07-27"},
+          {"nom": "Pokémon Platine", "genre": "Version complémentaire", "console": "Nintendo DS", "japon": "2008-09-13", "europe": "2009-05-22"},
+          {"nom": "Pokémon Or HeartGold et Argent SoulSilver", "genre": "Remake", "console": "Nintendo DS", "japon": "2009-09-12", "europe": "2010-03-26", "note": "Remakes d'Or et Argent (génération 2). Le premier Pokémon de l'équipe suit le héros partout."}
+        ] },
+        {"numero": 5, "region": "Unys", "vedette": 643, "resume": "156 nouveaux Pokémon, le record pour une seule génération, sur Nintendo DS.", "jeux": [
+          {"nom": "Pokémon Noir et Blanc", "genre": "Nouvelle région", "console": "Nintendo DS", "japon": "2010-09-18", "europe": "2011-03-04"},
+          {"nom": "Pokémon Noir 2 et Blanc 2", "genre": "Suite", "console": "Nintendo DS", "japon": "2012-06-23", "europe": "2012-10-12", "note": "Les seules vraies suites de la série : l'histoire se passe deux ans après Noir et Blanc. Cette génération n'a pas eu de remake."}
+        ] },
+        {"numero": 6, "region": "Kalos", "vedette": 716, "resume": "Le passage à la 3D, le type Fée et les Méga-Évolutions, sur Nintendo 3DS.", "jeux": [
+          {"nom": "Pokémon X et Y", "genre": "Nouvelle région", "console": "Nintendo 3DS", "japon": "2013-10-12", "europe": "2013-10-12", "note": "Les premiers jeux principaux sortis le même jour dans le monde entier."},
+          {"nom": "Pokémon Rubis Oméga et Saphir Alpha", "genre": "Remake", "console": "Nintendo 3DS", "japon": "2014-11-21", "europe": "2014-11-28", "note": "Remakes de Rubis et Saphir (génération 3)."}
+        ] },
+        {"numero": 7, "region": "Alola", "vedette": 791, "resume": "Des îles tropicales, les formes régionales et les capacités Z, sur Nintendo 3DS puis Nintendo Switch.", "jeux": [
+          {"nom": "Pokémon Soleil et Lune", "genre": "Nouvelle région", "console": "Nintendo 3DS", "japon": "2016-11-18", "europe": "2016-11-23"},
+          {"nom": "Pokémon Ultra-Soleil et Ultra-Lune", "genre": "Version complémentaire", "console": "Nintendo 3DS", "japon": "2017-11-17", "europe": "2017-11-17"},
+          {"nom": "Pokémon : Let's Go, Pikachu et Let's Go, Évoli", "genre": "Remake", "console": "Nintendo Switch", "japon": "2018-11-16", "europe": "2018-11-16", "note": "Remakes de Pokémon Jaune (génération 1), avec une capture inspirée de Pokémon GO."}
+        ] },
+        {"numero": 8, "region": "Galar", "vedette": 888, "resume": "Les premiers jeux principaux sur Nintendo Switch, avec des Pokémon géants.", "jeux": [
+          {"nom": "Pokémon Épée et Bouclier", "genre": "Nouvelle région", "console": "Nintendo Switch", "japon": "2019-11-15", "europe": "2019-11-15"},
+          {"nom": "Pokémon Diamant Étincelant et Perle Scintillante", "genre": "Remake", "console": "Nintendo Switch", "japon": "2021-11-19", "europe": "2021-11-19", "note": "Remakes de Diamant et Perle (génération 4)."},
+          {"nom": "Légendes Pokémon : Arceus", "genre": "Légendes", "console": "Nintendo Switch", "japon": "2022-01-28", "europe": "2022-01-28", "note": "Une aventure dans le passé de Sinnoh, tournée vers l'exploration."}
+        ] },
+        {"numero": 9, "region": "Paldea", "vedette": 1007, "resume": "Un grand monde ouvert à explorer librement, sur Nintendo Switch.", "jeux": [
+          {"nom": "Pokémon Écarlate et Violet", "genre": "Nouvelle région", "console": "Nintendo Switch", "japon": "2022-11-18", "europe": "2022-11-18"},
+          {"nom": "Légendes Pokémon : Z-A", "genre": "Légendes", "console": "Nintendo Switch et Switch 2", "japon": "2025-10-16", "europe": "2025-10-16", "note": "Une aventure dans la ville d'Illumis, à Kalos, avec le retour des Méga-Évolutions."}
+        ] }
       ] },
+      {"t": "encart", "texte": "Les dates « Europe » sont celles de la première sortie européenne : selon les pays, le jeu a parfois été disponible quelques jours plus tard. Une dixième génération est annoncée pour 2027."},
       { "t": "h2", "texte": "Pas seulement la série principale" },
       { "t": "p", "texte": "Pokémon, c'est aussi de nombreux jeux différents : Pokémon Snap où l'on prend des photos, Pokémon Donjon Mystère où l'on incarne un Pokémon, ou encore Pokémon GO, sorti en 2016 sur téléphone, qui fait sortir les Dresseurs dans la rue pour capturer des Pokémon près de chez eux." },
       { "t": "p", "texte": "Plus récemment, Légendes Pokémon : Arceus (2022) et Légendes Pokémon : Z-A (2025) ont proposé une autre façon de jouer, plus tournée vers l'exploration et l'action." },

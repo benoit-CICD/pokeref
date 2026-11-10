@@ -3,7 +3,7 @@
 // À incrémenter après une régénération des données : invalide le cache HTTP des JSON.
 // Les données personnelles (favoris, collection) ont leur propre version de format,
 // pour ne pas être perdues à chaque régénération.
-export const VERSION = '1';
+export const VERSION = '2';
 
 export const COULEURS_TYPES = {
   normal: '#8f8f7a', fire: '#ee7b2e', water: '#4f8fe8', electric: '#e6b800',

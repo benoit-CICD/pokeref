@@ -27,8 +27,70 @@ async function afficherListe() {
   rendre();
 }
 
+// ---------------------------------------------------------------- frise des jeux
+
+const versDate = (iso) => new Date(`${iso}T00:00:00`);
+const dateLongue = (iso) => versDate(iso)
+  .toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+  .replace(/^1 /, '1er ');
+
+/** Écart entre la sortie japonaise et la sortie européenne, en clair. */
+function ecart(japon, europe) {
+  const [a, b] = [versDate(japon), versDate(europe)];
+  let mois = (b.getFullYear() - a.getFullYear()) * 12 + b.getMonth() - a.getMonth();
+  if (b.getDate() < a.getDate()) mois--;
+  if (mois < 1) {
+    const jours = Math.round((b - a) / 86400000);
+    return `${jours} jour${jours > 1 ? 's' : ''} après le Japon`;
+  }
+  const ans = Math.floor(mois / 12);
+  const reste = mois % 12;
+  const morceaux = [ans && `${ans} an${ans > 1 ? 's' : ''}`, reste && `${reste} mois`].filter(Boolean);
+  return `${morceaux.join(' et ')} après le Japon`;
+}
+
+function datesDuJeu(jeu) {
+  const ligne = (lieu, valeur, precision) => el('div', {},
+    el('dt', {}, lieu), el('dd', {}, valeur, precision && el('small', {}, precision)));
+  if (jeu.japon && jeu.japon === jeu.europe) return [ligne('Monde entier', dateLongue(jeu.japon), 'même jour partout')];
+  return [
+    jeu.japon && ligne('Japon', dateLongue(jeu.japon)),
+    jeu.europe
+      ? ligne('Europe', dateLongue(jeu.europe), jeu.japon && ecart(jeu.japon, jeu.europe))
+      : ligne('Europe', 'Jamais sorti'),
+  ];
+}
+
+function rendreFrise(bloc) {
+  return el('div', { class: 'frise' }, bloc.generations.map((g) => {
+    const annees = g.jeux.flatMap((j) => [j.japon, j.europe]).filter(Boolean).map((d) => Number(d.slice(0, 4)));
+    const [debut, fin] = [Math.min(...annees), Math.max(...annees)];
+    return el('section', { class: 'frise-generation' },
+      el('header', { class: 'frise-tete' },
+        g.vedette && el('img', { src: image(g.vedette), alt: '', width: 320, height: 320, loading: 'lazy' }),
+        el('div', {},
+          el('h3', {}, `Génération ${g.numero} · ${g.region}`),
+          el('p', { class: 'frise-annees' }, debut === fin ? String(debut) : `${debut} – ${fin}`),
+          el('p', {}, g.resume),
+        ),
+      ),
+      el('ol', { class: 'frise-jeux' }, g.jeux.map((jeu) =>
+        el('li', { class: `frise-jeu${jeu.genre === 'Remake' ? ' frise-remake' : ''}` },
+          el('div', { class: 'frise-jeu-tete' },
+            el('strong', {}, jeu.nom),
+            el('span', { class: 'frise-genre' }, jeu.genre),
+          ),
+          el('p', { class: 'frise-console' }, jeu.console),
+          el('dl', { class: 'frise-dates' }, datesDuJeu(jeu)),
+          jeu.note && el('p', { class: 'frise-note' }, jeu.note),
+        ))),
+    );
+  }));
+}
+
 function rendreBloc(bloc, index, nomsTypes) {
   switch (bloc.t) {
+    case 'frise': return rendreFrise(bloc);
     case 'h2': return el('h2', {}, bloc.texte);
     case 'liste': return el('ul', {}, bloc.elements.map((e) => el('li', {}, e)));
     case 'encart': return el('p', { class: 'encart' }, bloc.texte);
