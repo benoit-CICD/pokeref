@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PokéRef — Le Pokédex de tous les Pokémon</title>
+  <meta name="description" content="Explore tous les Pokémon : recherche par nom, tri par type, par génération, fiches détaillées et articles sur l'univers Pokémon.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="preload" href="data/index.json?v=1" as="fetch" crossorigin>
+</head>
+<body>
+  <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="index.html"><span class="logo-marque" aria-hidden="true">★</span>PokéRef</a>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="index.html" aria-current="page">Pokédex</a>
+        <a href="articles.html">Articles</a>
+        <a href="collection.html">Cartes</a>
+        <span>Compétitif <small>bientôt</small></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="hero conteneur">
+      <h1>Découvre <em>tous</em> les Pokémon</h1>
+      <p>Cherche ton Pokémon préféré, trie-les par type ou par génération, et ouvre sa fiche pour tout savoir sur lui.</p>
+
+      <form class="recherche" role="search" id="formulaire-recherche">
+        <div class="recherche-champ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <label class="masque-visuel" for="recherche">Chercher un Pokémon par nom ou par numéro</label>
+          <input id="recherche" type="search" placeholder="Pikachu, Dracaufeu, 151…" autocomplete="off" enterkeyhint="search">
+        </div>
+        <button class="bouton bouton-plein" type="button" id="hasard">🎲 Au hasard</button>
+      </form>
+    </section>
+
+    <section class="conteneur" aria-label="Filtres">
+      <div class="filtres">
+        <fieldset class="filtre-groupe">
+          <legend>Type</legend>
+          <div class="puces" id="filtre-types"></div>
+        </fieldset>
+        <fieldset class="filtre-groupe">
+          <legend>Génération</legend>
+          <div class="puces" id="filtre-generations"></div>
+        </fieldset>
+        <fieldset class="filtre-groupe">
+          <legend>Catégorie</legend>
+          <div class="puces" id="filtre-categories"></div>
+        </fieldset>
+      </div>
+    </section>
+
+    <section class="conteneur" id="resultats" aria-label="Résultats">
+      <div class="barre-resultats">
+        <p id="compteur" aria-live="polite">Chargement…</p>
+        <div class="actions">
+          <button class="lien-discret" type="button" id="effacer" hidden>Effacer les filtres</button>
+          <label class="tri">Trier par
+            <select id="tri">
+              <option value="numero">Numéro</option>
+              <option value="nom">Nom (A → Z)</option>
+              <option value="puissance">Les plus puissants</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <ul class="grille" id="grille">
+        <li class="squelette"></li><li class="squelette"></li><li class="squelette"></li><li class="squelette"></li>
+        <li class="squelette"></li><li class="squelette"></li><li class="squelette"></li><li class="squelette"></li>
+      </ul>
+      <nav class="pagination" id="pagination" aria-label="Pages de résultats"></nav>
+    </section>
+
+    <section class="section conteneur" aria-labelledby="titre-articles">
+      <div class="section-titre">
+        <h2 id="titre-articles">Le monde Pokémon</h2>
+        <a href="articles.html">Tous les articles →</a>
+      </div>
+      <ul class="grille-articles" id="articles"></ul>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">
+      <p>PokéRef est un site de fans, non officiel et sans but commercial. Pokémon et les noms des personnages sont des marques de Nintendo, Creatures Inc. et GAME FREAK inc.</p>
+      <p>Données : <a href="https://pokeapi.co/">PokéAPI</a>.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="assets/js/liste.js"></script>
+</body>
+</html>

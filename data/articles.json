@@ -1,0 +1,148 @@
+[
+  {
+    "slug": "pokemon-legendaires-et-fabuleux",
+    "titre": "Légendaires et fabuleux : les Pokémon les plus rares",
+    "categorie": "Pokémon rares",
+    "resume": "Mewtwo, Lugia, Rayquaza, Mew… Qui sont ces Pokémon uniques que tous les Dresseurs rêvent de croiser ?",
+    "vedette": 384,
+    "couleur": "#5cab3e",
+    "blocs": [
+      { "t": "p", "texte": "Dans le monde Pokémon, certaines créatures sont si rares qu'on raconte des légendes à leur sujet. On les rencontre en général une seule fois par aventure, souvent à la fin d'un donjon ou au cœur de l'histoire du jeu." },
+      { "t": "h2", "texte": "C'est quoi, un Pokémon légendaire ?" },
+      { "t": "p", "texte": "Un Pokémon légendaire est un Pokémon très puissant, lié aux mythes de sa région : il peut avoir créé les mers, les continents, le temps ou l'espace. Il n'évolue presque jamais et on ne peut en général pas le faire se reproduire à la Pension." },
+      { "t": "pokemon", "ids": [144, 145, 146, 150, 249, 250, 382, 383, 384] },
+      { "t": "h2", "texte": "Et un Pokémon fabuleux ?" },
+      { "t": "p", "texte": "Les Pokémon fabuleux sont encore plus difficiles à obtenir. Pendant longtemps, on ne pouvait pas les trouver en jouant normalement : il fallait participer à une distribution spéciale, au cinéma ou en magasin. Mew, le tout premier, était un secret caché dans les jeux Rouge et Bleu." },
+      { "t": "pokemon", "ids": [151, 251, 385, 492, 493, 647] },
+      { "t": "encart", "texte": "Astuce : dans le Pokédex de PokéRef, utilise les filtres « Légendaires » et « Fabuleux » pour tous les afficher d'un coup." },
+      { "t": "h2", "texte": "Rare ne veut pas dire imbattable" },
+      { "t": "p", "texte": "Les légendaires ont de très bonnes statistiques, mais ils ont aussi des faiblesses. Rayquaza, par exemple, craint énormément les attaques de type Glace. Un Dresseur malin avec une équipe bien préparée peut battre n'importe qui !" }
+    ]
+  },
+  {
+    "slug": "pokemon-chromatiques",
+    "titre": "Les Pokémon chromatiques, ces couleurs qui brillent",
+    "categorie": "Pokémon rares",
+    "resume": "Un Léviator rouge ? Un Métalosse argenté ? Découvre les Pokémon chromatiques, aussi appelés « shiny ».",
+    "vedette": 130,
+    "couleur": "#4f8fe8",
+    "blocs": [
+      { "t": "p", "texte": "Un Pokémon chromatique (« shiny » en anglais) est un Pokémon dont les couleurs sont différentes de d'habitude. Quand il apparaît, de petites étoiles scintillent autour de lui. Il n'est pas plus fort qu'un autre : il est juste beaucoup, beaucoup plus rare." },
+      { "t": "h2", "texte": "Une chance minuscule" },
+      { "t": "p", "texte": "Les chromatiques sont apparus dans les versions Or et Argent. À l'époque, chaque Pokémon rencontré avait 1 chance sur 8 192 d'être chromatique. Depuis les versions X et Y, c'est 1 chance sur 4 096 : c'est mieux, mais ça reste très rare !" },
+      { "t": "h2", "texte": "Le plus célèbre : le Léviator rouge" },
+      { "t": "p", "texte": "Dans Pokémon Or et Argent, un Léviator rouge attend tous les joueurs au Lac Colère. C'est grâce à lui que beaucoup de Dresseurs ont découvert l'existence des Pokémon chromatiques." },
+      { "t": "pokemon", "ids": [130, 129, 376, 6, 197, 384] },
+      { "t": "h2", "texte": "Comment augmenter ses chances ?" },
+      { "t": "liste", "elements": [
+        "Le Charme Chroma, un objet offert quand on a complété le Pokédex, augmente les chances.",
+        "Certains jeux récompensent les joueurs qui rencontrent ou battent le même Pokémon de nombreuses fois de suite.",
+        "Faire éclore des Œufs dont les parents viennent de jeux de langues différentes aide aussi : c'est la « méthode Masuda »."
+      ] },
+      { "t": "encart", "texte": "Surtout, pas de pression : croiser un chromatique par hasard reste l'un des plus beaux moments d'une aventure Pokémon." }
+    ]
+  },
+  {
+    "slug": "pokemon-de-depart",
+    "titre": "Plante, Feu ou Eau : bien choisir son premier Pokémon",
+    "categorie": "Découverte",
+    "resume": "Chaque aventure commence par un choix difficile. Voici les Pokémon de départ de chaque génération.",
+    "vedette": 4,
+    "couleur": "#ee7b2e",
+    "blocs": [
+      { "t": "p", "texte": "Au début de chaque jeu, un Professeur te propose trois Pokémon : un de type Plante, un de type Feu et un de type Eau. Celui que tu choisis t'accompagne pendant toute l'aventure. On les appelle les Pokémon de départ, ou « starters »." },
+      { "t": "h2", "texte": "Un triangle parfait" },
+      { "t": "liste", "elements": [
+        "L'Eau éteint le Feu.",
+        "Le Feu brûle la Plante.",
+        "La Plante absorbe l'Eau."
+      ] },
+      { "t": "p", "texte": "Ce petit jeu de « pierre-feuille-ciseaux » est la meilleure façon de comprendre les forces et les faiblesses des types." },
+      { "t": "h2", "texte": "Les Pokémon de départ de chaque région" },
+      { "t": "pokemon", "ids": [1, 4, 7, 152, 155, 158, 252, 255, 258, 387, 390, 393, 495, 498, 501, 650, 653, 656, 722, 725, 728, 810, 813, 816, 906, 909, 912] },
+      { "t": "encart", "texte": "Il n'y a pas de mauvais choix : prends simplement celui que tu préfères. C'est toi le Dresseur !" }
+    ]
+  },
+  {
+    "slug": "histoire-des-jeux-video-pokemon",
+    "titre": "L'histoire des jeux vidéo Pokémon",
+    "categorie": "Jeux vidéo",
+    "resume": "De la Game Boy à la Nintendo Switch : comment Pokémon est devenu l'une des séries de jeux les plus connues au monde.",
+    "vedette": 9,
+    "couleur": "#4f8fe8",
+    "blocs": [
+      { "t": "p", "texte": "Tout commence avec Satoshi Tajiri. Enfant, il adorait attraper et collectionner des insectes. Devenu créateur de jeux vidéo au sein du studio Game Freak, il imagine un jeu où l'on capture des créatures et où on les échange avec ses amis grâce au câble de la Game Boy." },
+      { "t": "h2", "texte": "1996 : Rouge et Vert au Japon" },
+      { "t": "p", "texte": "Les premiers jeux, Pocket Monsters Rouge et Vert, sortent au Japon en février 1996 sur Game Boy. On y découvre la région de Kanto et 151 Pokémon, dessinés par Ken Sugimori. En France, ils arrivent en 1999 sous les noms Pokémon Rouge et Pokémon Bleu, suivis de la version Jaune où Pikachu marche derrière le héros." },
+      { "t": "pokemon", "ids": [1, 4, 7, 25, 150, 151] },
+      { "t": "h2", "texte": "Une nouvelle région à chaque génération" },
+      { "t": "p", "texte": "Chaque nouvelle « génération » de jeux apporte une région à explorer, de nouveaux Pokémon et de nouvelles idées." },
+      { "t": "liste", "elements": [
+        "Génération 2 — Or et Argent (Johto) : le jour et la nuit, les Œufs et 100 nouveaux Pokémon.",
+        "Génération 3 — Rubis et Saphir (Hoenn) : les talents et les combats à deux contre deux, sur Game Boy Advance.",
+        "Génération 4 — Diamant et Perle (Sinnoh) : les échanges et combats en ligne, sur Nintendo DS.",
+        "Génération 5 — Noir et Blanc (Unys) : 156 nouveaux Pokémon, le record pour une seule génération.",
+        "Génération 6 — X et Y (Kalos) : le passage à la 3D, le type Fée et les Méga-Évolutions.",
+        "Génération 7 — Soleil et Lune (Alola) : des îles tropicales, les formes régionales et les capacités Z.",
+        "Génération 8 — Épée et Bouclier (Galar) : les premiers jeux principaux sur Nintendo Switch, avec des Pokémon géants.",
+        "Génération 9 — Écarlate et Violet (Paldea) : un grand monde ouvert à explorer librement."
+      ] },
+      { "t": "h2", "texte": "Pas seulement la série principale" },
+      { "t": "p", "texte": "Pokémon, c'est aussi de nombreux jeux différents : Pokémon Snap où l'on prend des photos, Pokémon Donjon Mystère où l'on incarne un Pokémon, ou encore Pokémon GO, sorti en 2016 sur téléphone, qui fait sortir les Dresseurs dans la rue pour capturer des Pokémon près de chez eux." },
+      { "t": "p", "texte": "Plus récemment, Légendes Pokémon : Arceus (2022) et Légendes Pokémon : Z-A (2025) ont proposé une autre façon de jouer, plus tournée vers l'exploration et l'action." },
+      { "t": "encart", "texte": "Aujourd'hui, il existe plus de 1 000 Pokémon. Tu peux tous les retrouver dans le Pokédex, classés par génération." }
+    ]
+  },
+  {
+    "slug": "dessin-anime-pokemon",
+    "titre": "Le dessin animé Pokémon : de Sacha à Liko et Rhod",
+    "categorie": "Animé",
+    "resume": "Depuis 1997, la série animée raconte les aventures de jeunes Dresseurs. Retour sur plus de 25 ans de voyages.",
+    "vedette": 25,
+    "couleur": "#e6b800",
+    "blocs": [
+      { "t": "p", "texte": "La série animée Pokémon débute au Japon le 1er avril 1997. Elle raconte l'histoire de Sacha, un garçon de 10 ans originaire du Bourg Palette, qui rêve de devenir Maître Pokémon." },
+      { "t": "h2", "texte": "Sacha et Pikachu, un duo inséparable" },
+      { "t": "p", "texte": "Le jour de son départ, Sacha arrive en retard chez le Professeur Chen : il ne reste plus qu'un Pikachu têtu, qui refuse d'entrer dans sa Poké Ball. Les débuts sont difficiles, mais ils deviennent vite les meilleurs amis du monde." },
+      { "t": "p", "texte": "Au fil de ses voyages, Sacha est accompagné de nombreux amis, comme Ondine et Pierre, et poursuivi par la Team Rocket : Jessie, James et leur Miaouss qui parle." },
+      { "t": "pokemon", "ids": [25, 6, 1, 7, 52, 143] },
+      { "t": "h2", "texte": "Enfin champion !" },
+      { "t": "p", "texte": "Pendant très longtemps, Sacha n'a gagné aucune grande Ligue Pokémon. Il remporte finalement la Ligue d'Alola en 2019, puis devient champion du monde en 2022 en battant Tarak, le Maître de Galar." },
+      { "t": "h2", "texte": "De nouveaux héros" },
+      { "t": "p", "texte": "En 2023, après plus de 1 200 épisodes, l'histoire de Sacha et Pikachu se termine. Une nouvelle série commence, « Pokémon, les horizons », avec deux nouveaux héros : Liko et Rhod, accompagnés de Poussacha et Chochodile, et d'un certain Capitaine Pikachu." },
+      { "t": "pokemon", "ids": [906, 909, 912] },
+      { "t": "encart", "texte": "Le savais-tu ? Dans la version japonaise, Sacha s'appelle Satoshi, comme Satoshi Tajiri, le créateur de Pokémon." }
+    ]
+  },
+  {
+    "slug": "films-pokemon",
+    "titre": "Les films Pokémon : du cinéma pour les Dresseurs",
+    "categorie": "Films",
+    "resume": "Mewtwo, Lugia, Lucario… Les films mettent en scène les Pokémon les plus mystérieux. Par où commencer ?",
+    "vedette": 150,
+    "couleur": "#9f449f",
+    "blocs": [
+      { "t": "p", "texte": "En plus de la série animée, Pokémon a droit à ses films : plus d'une vingtaine de longs-métrages animés, presque toujours centrés sur un Pokémon légendaire ou fabuleux." },
+      { "t": "h2", "texte": "Les premiers films" },
+      { "t": "liste", "elements": [
+        "Mewtwo contre-attaque (1998 au Japon) : le tout premier film, avec le face-à-face entre Mewtwo et Mew.",
+        "Le pouvoir est en toi : Sacha doit aider Lugia à ramener la paix entre Artikodin, Électhor et Sulfura.",
+        "Le Sort des Zarbi : un Entei mystérieux apparaît pour protéger une petite fille.",
+        "Celebi, la voix de la forêt : une aventure à travers le temps."
+      ] },
+      { "t": "pokemon", "ids": [150, 151, 249, 244, 251, 201] },
+      { "t": "h2", "texte": "D'autres films à découvrir" },
+      { "t": "liste", "elements": [
+        "Les Héros Pokémon : Latias et Latios protègent une ville bâtie sur l'eau.",
+        "Jirachi, le génie des vœux : un Pokémon qui ne se réveille que sept jours tous les mille ans.",
+        "Lucario et le Mystère de Mew : l'histoire d'un Lucario venu du passé.",
+        "Je te choisis ! (2017) : la rencontre de Sacha et Pikachu racontée d'une nouvelle façon.",
+        "Les Secrets de la jungle : un garçon élevé par le Pokémon fabuleux Zarude."
+      ] },
+      { "t": "pokemon", "ids": [380, 381, 385, 448, 893] },
+      { "t": "h2", "texte": "Détective Pikachu : des Pokémon « en vrai »" },
+      { "t": "p", "texte": "En 2019 sort Pokémon : Détective Pikachu, le premier film Pokémon avec de vrais acteurs. Les Pokémon y sont créés en images de synthèse et vivent au milieu des humains dans la ville de Ryme City. Pikachu y porte une casquette de détective… et il parle !" },
+      { "t": "encart", "texte": "Envie d'en savoir plus sur les stars de ces films ? Touche leur carte pour ouvrir leur fiche." }
+    ]
+  }
+]
