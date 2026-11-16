@@ -96,11 +96,7 @@ button, input, select { font: inherit; color: inherit; }
   display: inline-flex; align-items: center; gap: .55rem;
   font-weight: 900; font-size: 1.35rem; letter-spacing: -.02em; text-decoration: none;
 }
-.logo-marque {
-  width: 34px; height: 34px; border-radius: 12px; rotate: -8deg;
-  background: var(--accent); color: var(--accent-texte);
-  display: grid; place-items: center; font-size: 1.1rem;
-}
+.logo-marque { width: 34px; height: 34px; rotate: -12deg; }
 
 .nav { display: flex; gap: .25rem; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
 .nav a, .nav span {
